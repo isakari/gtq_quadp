@@ -2,9 +2,11 @@ TARGET = ../bin/a.out
 
 FC = gfortran
 USE_OPENMP = 1
-OPT = 1
-#DBG = 1
-OBJS = module_gauss_turan_quadrature.o main.o
+# OPT = 1
+DBG = 1
+OBJS = module_gauss_legendre_quadrature.o \
+	module_gauss_turan_quadrature.o \
+	main.o
 GFORTRAN = gfortran
 IFORT = ifort
 

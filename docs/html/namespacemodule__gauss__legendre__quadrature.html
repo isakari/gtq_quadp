@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>gtq_quadp: module_gauss_legendre_quadratureモジュール</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">gtq_quadp
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">関数/サブルーチン</a>  </div>
+  <div class="headertitle">
+<div class="title">module_gauss_legendre_quadratureモジュール</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+関数/サブルーチン</h2></td></tr>
+<tr class="memitem:a02f6fa3f9307cc4f6744673edb088f5d"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__legendre__quadrature.html#a02f6fa3f9307cc4f6744673edb088f5d">assemble_gauss_legendre</a> (n, gz, we)</td></tr>
+<tr class="memdesc:a02f6fa3f9307cc4f6744673edb088f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ガウス積分の分点と重みを計算する  <a href="#a02f6fa3f9307cc4f6744673edb088f5d">[詳解]</a><br /></td></tr>
+<tr class="separator:a02f6fa3f9307cc4f6744673edb088f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">関数/サブルーチン詳解</h2>
+<a id="a02f6fa3f9307cc4f6744673edb088f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f6fa3f9307cc4f6744673edb088f5d">&#9670;&nbsp;</a></span>assemble_gauss_legendre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine, public module_gauss_legendre_quadrature::assemble_gauss_legendre </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">real(8), dimension(n), intent(out)&#160;</td>
+          <td class="paramname"><em>gz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">real(8), dimension(n), intent(out)&#160;</td>
+          <td class="paramname"><em>we</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ガウス積分の分点と重みを計算する </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ng</td><td>分点の数 </td></tr>
+    <tr><td class="paramname">gz</td><td>分点の座標 </td></tr>
+    <tr><td class="paramname">we</td><td>重み </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>対称三重対角行列の対角成分</p>
+<p>対称三重対角行列の非対角成分</p>
+<p>固有ベクトル </p>
+
+<p class="definition"> <a class="el" href="module__gauss__legendre__quadrature_8f90_source.html">module_gauss_legendre_quadrature.f90</a> の <a class="el" href="module__gauss__legendre__quadrature_8f90_source.html#l00014">14</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="module__gauss__turan__quadrature_8f90_source.html#l00078">module_gauss_turan_quadrature::assemble_gauss_turan()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">integer</span>,<span class="keywordtype">intent(in)</span> :: n</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">real(8)</span>,<span class="keywordtype">intent(out)</span> :: gz(n), we(n)</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">real(8)</span> :: td(n)</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">real(8)</span> :: tl(n-1)</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">complex(8)</span> :: q(n,n)</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">integer</span> :: i, info</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">real(8)</span> :: work(2*n-2)</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    </div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    td(:)=0.d0</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">do</span> i=1,n-1</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;       tl(i)=dble(i)/sqrt((2.d0*i-1.0d0)*(2.0*i+1.d0))</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordflow">    end do</span></div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    q(:,:)=cmplx(0.d0,0.d0,kind(1.d0))</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">do</span> i=1,n</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;       q(i,i)=cmplx(1.d0,0.d0,kind(1.d0))</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordflow">    end do</span></div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">call </span>zsteqr(<span class="stringliteral">&quot;V&quot;</span>,n,td,tl,q,n,work,info)</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">do</span> i=1,n</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;       gz(i)=td(i)</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;       we(i)=2.d0*(<span class="keywordtype">real</span>(q(1,i))**2+aimag(q(1,i))**2)</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordflow">    end do</span></div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div></div><!-- fragment --><div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacemodule__gauss__legendre__quadrature_a02f6fa3f9307cc4f6744673edb088f5d_icgraph.png" border="0" usemap="#namespacemodule__gauss__legendre__quadrature_a02f6fa3f9307cc4f6744673edb088f5d_icgraph" alt=""/></div>
+<map name="namespacemodule__gauss__legendre__quadrature_a02f6fa3f9307cc4f6744673edb088f5d_icgraph" id="namespacemodule__gauss__legendre__quadrature_a02f6fa3f9307cc4f6744673edb088f5d_icgraph">
+<area shape="rect" id="node2" href="namespacemodule__gauss__turan__quadrature.html#a7b658c32a8ccd0440a85bd0dbad54a42" title="compute nodes and weights for GTQ " alt="" coords="216,5,371,61"/>
+<area shape="rect" id="node3" href="main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d" title="main" alt="" coords="419,20,469,47"/>
+</map>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2019年12月16日(月) 16時17分50秒作成 - gtq_quadp / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main',['main',['../main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d',1,'main.f90']]]
+  ['init_5fgauss_5fturan',['init_gauss_turan',['../namespacemodule__gauss__turan__quadrature.html#ae538a4a0a57333464c8f3a9bf6e2bc16',1,'module_gauss_turan_quadrature']]]
 ];

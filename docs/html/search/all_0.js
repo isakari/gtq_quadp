@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['gaussturanquadrature',['gaussturanquadrature',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html',1,'module_gauss_turan_quadrature']]],
-  ['gaussturanquadrature2',['gaussturanquadrature2',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature2.html',1,'module_gauss_turan_quadrature']]],
-  ['gt',['gt',['../namespacemodule__gauss__turan__quadrature.html#a851de5aa6546431e8b0e51e9973cb3d0',1,'module_gauss_turan_quadrature']]],
-  ['gz',['gz',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature2.html#ab8359923adf09c9705e0131c24827bff',1,'module_gauss_turan_quadrature::gaussturanquadrature2']]]
+  ['assemble_5fgauss_5flegendre',['assemble_gauss_legendre',['../namespacemodule__gauss__legendre__quadrature.html#a02f6fa3f9307cc4f6744673edb088f5d',1,'module_gauss_legendre_quadrature']]],
+  ['assemble_5fgauss_5fturan',['assemble_gauss_turan',['../namespacemodule__gauss__turan__quadrature.html#a7b658c32a8ccd0440a85bd0dbad54a42',1,'module_gauss_turan_quadrature']]]
 ];

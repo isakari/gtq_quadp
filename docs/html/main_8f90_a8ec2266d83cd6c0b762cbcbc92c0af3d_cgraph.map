@@ -1,4 +1,6 @@
 <map id="main" name="main">
-<area shape="rect" id="node2" href="$namespacemodule__gauss__turan__quadrature.html#ae538a4a0a57333464c8f3a9bf6e2bc16" title="allocate and associate gt " alt="" coords="104,5,297,47"/>
-<area shape="rect" id="node3" href="$namespacemodule__gauss__turan__quadrature.html#a309bd20010bb626f6d2fe71be19d2baf" title="deallocate and dissociate gt " alt="" coords="129,71,272,127"/>
+<area shape="rect" id="node2" href="$namespacemodule__gauss__turan__quadrature.html#a7b658c32a8ccd0440a85bd0dbad54a42" title="compute nodes and weights for GTQ " alt="" coords="123,5,278,61"/>
+<area shape="rect" id="node4" href="$namespacemodule__gauss__turan__quadrature.html#ae538a4a0a57333464c8f3a9bf6e2bc16" title="allocate and associate gt " alt="" coords="104,86,297,127"/>
+<area shape="rect" id="node5" href="$namespacemodule__gauss__turan__quadrature.html#a309bd20010bb626f6d2fe71be19d2baf" title="deallocate and dissociate gt " alt="" coords="129,152,272,208"/>
+<area shape="rect" id="node3" href="$namespacemodule__gauss__legendre__quadrature.html#a02f6fa3f9307cc4f6744673edb088f5d" title="ガウス積分の分点と重みを計算する " alt="" coords="345,5,508,61"/>
 </map>

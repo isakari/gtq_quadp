@@ -81,6 +81,9 @@ $(function() {
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html">module_gauss_turan_quadrature::gaussturanquadrature</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">type(GaussTuranQuadrature) gt(n)s(s) contains nodes and weights for Gauss-Turan-type quadrature (GTQ) which uses function value and derivatives (up to 2s-th order) at n nodes.  <a href="structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html#details">[詳解]</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">type &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html">module_gauss_turan_quadrature::gausslegendrequadrature</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ) which uses function value at n nodes.  <a href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 モジュール</h2></td></tr>
@@ -95,22 +98,29 @@ $(function() {
 <tr class="memitem:a309bd20010bb626f6d2fe71be19d2baf"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a309bd20010bb626f6d2fe71be19d2baf">module_gauss_turan_quadrature::uninit_gauss_turan</a> (gt_)</td></tr>
 <tr class="memdesc:a309bd20010bb626f6d2fe71be19d2baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">deallocate and dissociate gt  <a href="namespacemodule__gauss__turan__quadrature.html#a309bd20010bb626f6d2fe71be19d2baf">[詳解]</a><br /></td></tr>
 <tr class="separator:a309bd20010bb626f6d2fe71be19d2baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b658c32a8ccd0440a85bd0dbad54a42"><td class="memItemLeft" align="right" valign="top">subroutine, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a7b658c32a8ccd0440a85bd0dbad54a42">module_gauss_turan_quadrature::assemble_gauss_turan</a></td></tr>
+<tr class="memdesc:a7b658c32a8ccd0440a85bd0dbad54a42"><td class="mdescLeft">&#160;</td><td class="mdescRight">compute nodes and weights for GTQ  <a href="namespacemodule__gauss__turan__quadrature.html#a7b658c32a8ccd0440a85bd0dbad54a42">[詳解]</a><br /></td></tr>
+<tr class="separator:a7b658c32a8ccd0440a85bd0dbad54a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 変数</h2></td></tr>
 <tr class="memitem:a4f5918a4dfc00f91d132372c3a880d80"><td class="memItemLeft" align="right" valign="top">integer, parameter, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a4f5918a4dfc00f91d132372c3a880d80">module_gauss_turan_quadrature::maxs</a> =2</td></tr>
 <tr class="memdesc:a4f5918a4dfc00f91d132372c3a880d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum s  <a href="namespacemodule__gauss__turan__quadrature.html#a4f5918a4dfc00f91d132372c3a880d80">[詳解]</a><br /></td></tr>
 <tr class="separator:a4f5918a4dfc00f91d132372c3a880d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acad83d954c86111ad4416287d65c9478"><td class="memItemLeft" align="right" valign="top">integer, parameter, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#acad83d954c86111ad4416287d65c9478">module_gauss_turan_quadrature::maxng</a> =3</td></tr>
-<tr class="memdesc:acad83d954c86111ad4416287d65c9478"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum number of nodes  <a href="namespacemodule__gauss__turan__quadrature.html#acad83d954c86111ad4416287d65c9478">[詳解]</a><br /></td></tr>
-<tr class="separator:acad83d954c86111ad4416287d65c9478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8531fa3b2f2d7a68bb67561637d2f1f2"><td class="memItemLeft" align="right" valign="top">integer, parameter, public&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a8531fa3b2f2d7a68bb67561637d2f1f2">module_gauss_turan_quadrature::maxngt</a> =3</td></tr>
+<tr class="memdesc:a8531fa3b2f2d7a68bb67561637d2f1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum number of nodes  <a href="namespacemodule__gauss__turan__quadrature.html#a8531fa3b2f2d7a68bb67561637d2f1f2">[詳解]</a><br /></td></tr>
+<tr class="separator:a8531fa3b2f2d7a68bb67561637d2f1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab427bc7f3bbbabd8d2cf81d5b0291135"><td class="memItemLeft" align="right" valign="top">integer, parameter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#ab427bc7f3bbbabd8d2cf81d5b0291135">module_gauss_turan_quadrature::maxngl</a> =2*(maxs+1)*maxngt-1</td></tr>
+<tr class="separator:ab427bc7f3bbbabd8d2cf81d5b0291135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36034bc652e139997b688fd4e50836e5"><td class="memItemLeft" align="right" valign="top">type(gausslegendrequadrature), dimension(maxngl)&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a36034bc652e139997b688fd4e50836e5">module_gauss_turan_quadrature::gl</a></td></tr>
+<tr class="separator:a36034bc652e139997b688fd4e50836e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a851de5aa6546431e8b0e51e9973cb3d0"><td class="memItemLeft" align="right" valign="top">type(gaussturanquadrature), dimension(:), pointer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodule__gauss__turan__quadrature.html#a851de5aa6546431e8b0e51e9973cb3d0">module_gauss_turan_quadrature::gt</a></td></tr>
 <tr class="separator:a851de5aa6546431e8b0e51e9973cb3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年12月16日(月) 15時13分47秒作成 - gtq_quadp / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年12月16日(月) 16時17分50秒作成 - gtq_quadp / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
