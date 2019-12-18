@@ -4,7 +4,8 @@ FC = gfortran
 USE_OPENMP = 1
 # OPT = 1
 DBG = 1
-OBJS = module_gauss_legendre_quadrature.o \
+OBJS =	module_math.o \
+	module_gauss_legendre_quadrature.o \
 	module_gauss_turan_quadrature.o \
 	main.o
 GFORTRAN = gfortran

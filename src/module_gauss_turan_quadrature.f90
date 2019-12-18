@@ -1,4 +1,5 @@
 module module_gauss_turan_quadrature
+  use module_math
   use module_gauss_legendre_quadrature
   implicit none
 
@@ -22,7 +23,7 @@ module module_gauss_turan_quadrature
   end type GaussTuranQuadrature
 
   integer,parameter :: maxs=2 !< maximum s
-  integer,parameter :: maxngt=7 !< maximum number of nodes
+  integer,parameter :: maxngt=3 !< maximum number of nodes
   
   !> type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ)
   !> which uses function value at n nodes.
@@ -47,8 +48,8 @@ contains
     do ig=1,maxngt
        allocate(gt_(ig)%s(0:maxs)) ! gt()%s(0)はGauss-Legendre
        do is=0,maxs
-          allocate(gt_(ig)%s(is)%gz(ig))
-          allocate(gt_(ig)%s(is)%we(0:2*is,ig))
+          allocate(gt_(ig)%s(is)%gz(ig)); gt_(ig)%s(is)%gz(:)=0.d0
+          allocate(gt_(ig)%s(is)%we(0:2*is,ig)); gt_(ig)%s(is)%we(:,:)=0.d0
        end do
     end do
 
@@ -118,13 +119,15 @@ contains
   
   !> compute nodes and weights for GTQ
   subroutine assemble_gauss_turan
-    integer :: i, j, is, n, ngl, ig, ipiv(maxngt-1), info, itmp
+    integer :: i, j, k, l, is, n, ngl, ig, ipiv(maxngt-1), info, itmp
     real(8) :: bet(maxngt-1), w(maxngt-1), jac(maxngt-1,maxngt-1), f(maxngt-1)
     real(8) :: p(0:maxngt), q(0:maxngt,0:maxngt), b(0:maxngt,0:maxngt)
-    real(8) :: td(maxngt)
-    real(8) :: tl(maxngt-1)
+    real(8) :: td(maxngt), tl(maxngt-1), work(2*maxngt-2)
     complex(8) :: ev(maxngt,maxngt)
-    real(8) :: work(2*maxngt-2)
+
+    real(8) :: ahat(2*maxs+1,2*maxs+1), u(2*maxs), muhat(0:2*maxs), tmp, bb(2*maxs+1)
+
+!!$    real(8) :: x
     
     ! GLを準備
     do i=1,maxngl
@@ -210,24 +213,192 @@ contains
           do i=1,n
              gt(n)%s(is)%gz(i)=td(i)
           end do
-
+          
        end do
 
        ! n=1の時は分点は零
        gt(1)%s(is)%gz(1)=0.d0
 
-       ! (todo)
-       ! 重みを計算する. 
-       
     end do
 
-    ! 分点をcheck
-    do is=0,maxs
-       write(*,*) "s=", is
-       do n=1,maxngt
-          write(*,*) n, gt(n)%s(is)%gz(1:n)
+    do is=1,maxs ! 2*is階微分を使うGT公式の
+       do n=1,maxngt ! n次の公式の
+          do j=1,n ! j番分点の重みを計算する
+
+             ! uを計算
+             u(:)=0.d0
+             do i=1,2*is
+                do l=1,n
+                   if(l.ne.j) then
+                      u(i)=u(i)+(gt(n)%s(is)%gz(l)-gt(n)%s(is)%gz(j))**(-i)
+                   end if
+                end do
+             end do
+
+             ! ahatを計算
+             ahat(:,:)=0.d0
+             do k=1,2*is+1
+                ahat(k,k)=1.d0
+             end do
+             do l=1,2*is
+                do k=1,2*is+1-l
+                   do i=1,l
+                      ahat(k,k+l)=ahat(k,k+l)-(2.d0*is+1.d0)/dble(l)*u(i)*ahat(i,l)
+                   end do
+                end do
+             end do
+
+             ! muhatを計算
+             ngl=(is+1)*n
+             muhat(:)=0.d0
+             do k=0,2*is
+                do ig=1,ngl
+                   tmp=1.d0
+                   do l=1,n
+                      if(l.ne.j) then
+                         tmp=tmp*((gl(ngl)%gz(ig)-gt(n)%s(is)%gz(l))&
+                              /(gt(n)%s(is)%gz(j)-gt(n)%s(is)%gz(l)))**(2*is+1)
+                      end if
+                   end do
+                   muhat(k)=muhat(k)+(gl(ngl)%gz(ig)-gt(n)%s(is)%gz(j))**k*tmp*gl(ngl)%we(ig)
+                end do
+             end do
+
+             ! bを計算
+             bb(:)=0.d0
+             bb(2*is+1)=muhat(2*is)
+             do k=2*is,1,-1
+                bb(k)=muhat(k-1)
+                do l=k+1,2*is+1
+                   bb(k)=bb(k)-ahat(k,l)*bb(l)
+                end do
+             end do
+
+             ! bb-->weight
+             do k=1,2*is+1
+                gt(n)%s(is)%we(k-1,j)=bb(k)/factorial(k-1)
+             end do
+             
+          end do
        end do
     end do
+
+    ! 分点・重みをcheck
+    do is=0,maxs
+       do n=1,maxngt
+          write(*,*) "#", n,"-points GTQ with up to",2*is,"-th derivatives"
+          write(*,*) "# i, i-th node (x_i), weight for f^(s)(x_i), s=0,...",2*is
+          do i=1,n
+             write(*,*) i,gt(n)%s(is)%gz(i), gt(n)%s(is)%we(0:2*is,i)
+          end do
+       end do
+    end do
+
+!!$    write(*,*) "s",sin(1.d0)-sin(-1.d0)
+!!$
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(0)%ng
+!!$       x=gt(10)%s(1)%gz(ig)
+!!$       tmp=tmp+cos(x)*gt(10)%s(0)%we(0,ig)
+!!$    end do
+!!$    write(*,*) "0",tmp
+!!$    
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(1)%ng
+!!$       x=gt(10)%s(1)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(1)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(1)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(1)%we(2,ig))
+!!$    end do
+!!$    write(*,*) "1",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(2)%ng
+!!$       x=gt(10)%s(2)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(2)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(2)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(2)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(2)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(2)%we(4,ig))
+!!$    end do
+!!$    write(*,*) "2",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(3)%ng
+!!$       x=gt(10)%s(3)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(3)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(3)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(3)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(3)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(3)%we(4,ig)&
+!!$               -sin(x)*gt(10)%s(3)%we(5,ig)&
+!!$               -cos(x)*gt(10)%s(3)%we(6,ig))
+!!$    end do
+!!$    write(*,*) "3",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(4)%ng
+!!$       x=gt(10)%s(4)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(4)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(4)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(4)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(4)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(4)%we(4,ig)&
+!!$               -sin(x)*gt(10)%s(4)%we(5,ig)&
+!!$               -cos(x)*gt(10)%s(4)%we(6,ig)&
+!!$               +sin(x)*gt(10)%s(4)%we(7,ig)&
+!!$               +cos(x)*gt(10)%s(4)%we(8,ig))
+!!$    end do
+!!$    write(*,*) "4",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(5)%ng
+!!$       x=gt(10)%s(5)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(5)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(5)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(5)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(5)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(5)%we(4,ig)&
+!!$               -sin(x)*gt(10)%s(5)%we(5,ig)&
+!!$               -cos(x)*gt(10)%s(5)%we(6,ig)&
+!!$               +sin(x)*gt(10)%s(5)%we(7,ig)&
+!!$               +cos(x)*gt(10)%s(5)%we(8,ig)&
+!!$               -sin(x)*gt(10)%s(5)%we(9,ig)&
+!!$               -cos(x)*gt(10)%s(5)%we(10,ig))
+!!$    end do
+!!$    write(*,*) "5",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(6)%ng
+!!$       x=gt(10)%s(6)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(6)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(6)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(6)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(6)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(6)%we(4,ig)&
+!!$               -sin(x)*gt(10)%s(6)%we(5,ig)&
+!!$               -cos(x)*gt(10)%s(6)%we(6,ig)&
+!!$               +sin(x)*gt(10)%s(6)%we(7,ig)&
+!!$               +cos(x)*gt(10)%s(6)%we(8,ig)&
+!!$               -sin(x)*gt(10)%s(6)%we(9,ig)&
+!!$               -cos(x)*gt(10)%s(6)%we(10,ig)&
+!!$               +sin(x)*gt(10)%s(6)%we(11,ig)&
+!!$               +cos(x)*gt(10)%s(6)%we(12,ig))
+!!$    end do
+!!$    write(*,*) "6",tmp
+!!$    tmp=0.d0
+!!$    do ig=1,gt(10)%s(7)%ng
+!!$       x=gt(10)%s(7)%gz(ig)
+!!$       tmp=tmp+(cos(x)*gt(10)%s(7)%we(0,ig)&
+!!$               -sin(x)*gt(10)%s(7)%we(1,ig)&
+!!$               -cos(x)*gt(10)%s(7)%we(2,ig)&
+!!$               +sin(x)*gt(10)%s(7)%we(3,ig)&
+!!$               +cos(x)*gt(10)%s(7)%we(4,ig)&
+!!$               -sin(x)*gt(10)%s(7)%we(5,ig)&
+!!$               -cos(x)*gt(10)%s(7)%we(6,ig)&
+!!$               +sin(x)*gt(10)%s(7)%we(7,ig)&
+!!$               +cos(x)*gt(10)%s(7)%we(8,ig)&
+!!$               -sin(x)*gt(10)%s(7)%we(9,ig)&
+!!$               -cos(x)*gt(10)%s(7)%we(10,ig)&
+!!$               +sin(x)*gt(10)%s(7)%we(11,ig)&
+!!$               +cos(x)*gt(10)%s(7)%we(12,ig))
+!!$    end do
+!!$    write(*,*) "7",tmp
     
     ! GLを捨てる
     do i=1,maxngl
