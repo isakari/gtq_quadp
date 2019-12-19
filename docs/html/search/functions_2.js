@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main',['main',['../main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d',1,'main.f90']]]
+  ['factorial',['factorial',['../namespacemodule__math.html#a00fa9e7b0e4209e2886f36a35f7447f4',1,'module_math']]]
 ];

@@ -1,0 +1,20 @@
+<map id="module_gauss_turan_quadrature::dpoly" name="module_gauss_turan_quadrature::dpoly">
+<area shape="rect" id="node2" href="$namespacemodule__gauss__legendre__quadrature.html#a02f6fa3f9307cc4f6744673edb088f5d" title="ガウス積分の分点と重みを計算する " alt="" coords="198,5,361,61"/>
+<area shape="rect" id="node3" href="$namespacemodule__gauss__turan__quadrature.html#a7cbcb11d76d477dae2d6aee69ba8585b" title="Kroneckerのデルタ " alt="" coords="208,86,351,127"/>
+<area shape="rect" id="node4" href="$namespacemodule__gauss__turan__quadrature.html#a7a6e62bc8e140f165d3e458e80448916" title="Turan多項式のbeta微分 " alt="" coords="208,151,351,193"/>
+<area shape="rect" id="node5" href="$namespacemodule__gauss__turan__quadrature.html#aff45d01ffd3d4c840a8f9e84ccc5562b" title="Turan多項式 " alt="" coords="424,151,567,193"/>
+<area shape="rect" id="node6" href="$namespacemodule__math.html#a00fa9e7b0e4209e2886f36a35f7447f4" title="module_math::factorial" alt="" coords="202,268,357,295"/>
+<area shape="rect" id="node7" href="$namespacemodule__qlapack.html#a9ea124a3e9101e861a2e122f1829fedf" title="module_qlapack::lu\l_and_solve" alt="" coords="212,319,347,361"/>
+<area shape="rect" id="node8" href="$namespacemodule__qlapack.html#af2f23c899ae4b0b1ca78c97b84fde163" title="module_qlapack::qzsteqr" alt="" coords="196,420,363,447"/>
+<area shape="rect" id="node9" href="$namespacemodule__qlapack.html#a89e266a8c9991cd4c71b949cd577acf4" title="module_qlapack::qzlaset" alt="" coords="412,217,579,244"/>
+<area shape="rect" id="node10" href="$namespacemodule__qlapack.html#adf4fb8b504230fb5ed1d2648307e3867" title="module_qlapack::qlanst" alt="" coords="416,268,575,295"/>
+<area shape="rect" id="node12" href="$namespacemodule__qlapack.html#a07321d60c96647dacd54f470a13d8fd2" title="module_qlapack::qlascl" alt="" coords="416,319,575,345"/>
+<area shape="rect" id="node13" href="$namespacemodule__qlapack.html#a7733d0cf8f0adf51767eb27ee0142b8d" title="module_qlapack::qlaev2" alt="" coords="414,369,577,396"/>
+<area shape="rect" id="node14" href="$namespacemodule__qlapack.html#a10ebff11822584716ecedff2a9eca13a" title="module_qlapack::qzlasr" alt="" coords="416,420,575,447"/>
+<area shape="rect" id="node15" href="$namespacemodule__qlapack.html#a960241a7188de498098208031317d1b8" title="module_qlapack::qlae2" alt="" coords="418,471,573,497"/>
+<area shape="rect" id="node16" href="$namespacemodule__qlapack.html#ad7dfd8d1cfe89dc443b504873e6c2a05" title="module_qlapack::qlapy2" alt="" coords="414,521,577,548"/>
+<area shape="rect" id="node17" href="$namespacemodule__qlapack.html#abb991124a32fe2de4612dad8faf125d9" title="module_qlapack::qlartg" alt="" coords="417,572,573,599"/>
+<area shape="rect" id="node18" href="$namespacemodule__qlapack.html#ab57a5cb0d3be5d69c504292f2a79120d" title="module_qlapack::qlasrt" alt="" coords="417,623,573,649"/>
+<area shape="rect" id="node19" href="$namespacemodule__qlapack.html#a391d15e52a350306a51bb18c24e12207" title="module_qlapack::qzswap" alt="" coords="411,673,580,700"/>
+<area shape="rect" id="node11" href="$namespacemodule__qlapack.html#a3199a0de8c0a434ba3034489600d77b0" title="module_qlapack::qlassq" alt="" coords="628,268,791,295"/>
+</map>

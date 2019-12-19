@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['init_5fgauss_5fturan',['init_gauss_turan',['../namespacemodule__gauss__turan__quadrature.html#ae538a4a0a57333464c8f3a9bf6e2bc16',1,'module_gauss_turan_quadrature']]]
+  ['factorial',['factorial',['../namespacemodule__math.html#a00fa9e7b0e4209e2886f36a35f7447f4',1,'module_math']]]
 ];

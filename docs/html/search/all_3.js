@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['main',['main',['../main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d',1,'main.f90']]],
-  ['main_2ef90',['main.f90',['../main_8f90.html',1,'']]],
-  ['maxngl',['maxngl',['../namespacemodule__gauss__turan__quadrature.html#ab427bc7f3bbbabd8d2cf81d5b0291135',1,'module_gauss_turan_quadrature']]],
-  ['maxngt',['maxngt',['../namespacemodule__gauss__turan__quadrature.html#a8531fa3b2f2d7a68bb67561637d2f1f2',1,'module_gauss_turan_quadrature']]],
-  ['maxs',['maxs',['../namespacemodule__gauss__turan__quadrature.html#a4f5918a4dfc00f91d132372c3a880d80',1,'module_gauss_turan_quadrature']]],
-  ['module_5fgauss_5flegendre_5fquadrature',['module_gauss_legendre_quadrature',['../namespacemodule__gauss__legendre__quadrature.html',1,'']]],
-  ['module_5fgauss_5flegendre_5fquadrature_2ef90',['module_gauss_legendre_quadrature.f90',['../module__gauss__legendre__quadrature_8f90.html',1,'']]],
-  ['module_5fgauss_5fturan_5fquadrature',['module_gauss_turan_quadrature',['../namespacemodule__gauss__turan__quadrature.html',1,'']]],
-  ['module_5fgauss_5fturan_5fquadrature_2ef90',['module_gauss_turan_quadrature.f90',['../module__gauss__turan__quadrature_8f90.html',1,'']]]
+  ['gausslegendrequadrature',['gausslegendrequadrature',['../structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html',1,'module_gauss_turan_quadrature']]],
+  ['gaussturanquadrature',['gaussturanquadrature',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html',1,'module_gauss_turan_quadrature']]],
+  ['gaussturanquadrature2',['gaussturanquadrature2',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature2.html',1,'module_gauss_turan_quadrature']]],
+  ['gl',['gl',['../namespacemodule__gauss__turan__quadrature.html#a36034bc652e139997b688fd4e50836e5',1,'module_gauss_turan_quadrature']]],
+  ['gt',['gt',['../namespacemodule__gauss__turan__quadrature.html#a851de5aa6546431e8b0e51e9973cb3d0',1,'module_gauss_turan_quadrature']]],
+  ['gz',['gz',['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature2.html#ab8359923adf09c9705e0131c24827bff',1,'module_gauss_turan_quadrature::gaussturanquadrature2::gz()'],['../structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#a0a4d0906ea97aa2c0154ceb9ad02ca80',1,'module_gauss_turan_quadrature::gausslegendrequadrature::gz()'],['../structmodule__gauss__turan__quadrature_1_1gaussturanquadrature2.html#a6486fd7b4ac1bbf1c732ec64e065df6a',1,'module_gauss_turan_quadrature::gaussturanquadrature2::gz()'],['../structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#a25f59a84eae7432b25abd4904c09c6f7',1,'module_gauss_turan_quadrature::gausslegendrequadrature::gz()']]]
 ];

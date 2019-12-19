@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>gtq_quadp: main.f90 ソースファイル</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">gtq_quadp
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a class="el" href="dir_ba96495e18707fc4c8bcdb34c3490fda.html">isakari</a></li><li class="navelem"><a class="el" href="dir_e05f9a4996a405bd94d2ea405802e328.html">Dropbox</a></li><li class="navelem"><a class="el" href="dir_30518d53771eaf97f97e8de66e12a039.html">Works</a></li><li class="navelem"><a class="el" href="dir_229b14368c9b2ccd51505fa6f3496507.html">20ss</a></li><li class="navelem"><a class="el" href="dir_80d0333499c09a5616212d374a94cf5e.html">26gtq_quadp</a></li><li class="navelem"><a class="el" href="dir_2ca16caf7d26b45cee5988bb5153c08c.html">double</a></li><li class="navelem"><a class="el" href="dir_6f0071152af540eacb631c3b6db9e120.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">double/src/main.f90</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="double_2src_2main_8f90.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="double_2src_2main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d">    1</a></span>&#160;<span class="keyword">program</span> <a class="code" href="double_2src_2main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d">main</a></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;  <span class="keywordtype">use </span><a class="code" href="namespacemodule__gauss__turan__quadrature.html">module_gauss_turan_quadrature</a></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;  <span class="keywordtype">implicit none</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <span class="keywordtype">type</span>(<a class="code" href="structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html">gaussturanquadrature</a>) :: gt(<a class="code" href="namespacemodule__gauss__turan__quadrature.html#a625bd31f065884f0be51c7de7cb33667">maxngt</a>)</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keyword">call </span><a class="code" href="namespacemodule__gauss__turan__quadrature.html#af814054302cc40c3092778960efa85bf">init_gauss_turan</a>(gt)</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">call </span><a class="code" href="namespacemodule__gauss__turan__quadrature.html#ab600914a398b8e5489f03aca12706de5">assemble_gauss_turan</a></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">call </span><a class="code" href="namespacemodule__gauss__turan__quadrature.html#a65260904fbfceeb538cbe97b3c287b8f">uninit_gauss_turan</a>(gt)</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  </div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">end program </span><a class="code" href="double_2src_2main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d">main</a></div><div class="ttc" id="namespacemodule__gauss__turan__quadrature_html_a65260904fbfceeb538cbe97b3c287b8f"><div class="ttname"><a href="namespacemodule__gauss__turan__quadrature.html#a65260904fbfceeb538cbe97b3c287b8f">module_gauss_turan_quadrature::uninit_gauss_turan</a></div><div class="ttdeci">subroutine, public uninit_gauss_turan(gt_)</div><div class="ttdoc">deallocate and dissociate gt </div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00062">double/src/module_gauss_turan_quadrature.f90:62</a></div></div>
+<div class="ttc" id="double_2src_2main_8f90_html_a8ec2266d83cd6c0b762cbcbc92c0af3d"><div class="ttname"><a href="double_2src_2main_8f90.html#a8ec2266d83cd6c0b762cbcbc92c0af3d">main</a></div><div class="ttdeci">program main</div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2main_8f90_source.html#l00001">double/src/main.f90:1</a></div></div>
+<div class="ttc" id="namespacemodule__gauss__turan__quadrature_html_af814054302cc40c3092778960efa85bf"><div class="ttname"><a href="namespacemodule__gauss__turan__quadrature.html#af814054302cc40c3092778960efa85bf">module_gauss_turan_quadrature::init_gauss_turan</a></div><div class="ttdeci">subroutine, public init_gauss_turan(gt_)</div><div class="ttdoc">allocate and associate gt </div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00045">double/src/module_gauss_turan_quadrature.f90:45</a></div></div>
+<div class="ttc" id="namespacemodule__gauss__turan__quadrature_html"><div class="ttname"><a href="namespacemodule__gauss__turan__quadrature.html">module_gauss_turan_quadrature</a></div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00001">double/src/module_gauss_turan_quadrature.f90:1</a></div></div>
+<div class="ttc" id="structmodule__gauss__turan__quadrature_1_1gaussturanquadrature_html"><div class="ttname"><a href="structmodule__gauss__turan__quadrature_1_1gaussturanquadrature.html">module_gauss_turan_quadrature::gaussturanquadrature</a></div><div class="ttdoc">type(GaussTuranQuadrature) gt(n)s(s) contains nodes and weights for Gauss-Turan-type quadrature (GTQ)...</div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00021">double/src/module_gauss_turan_quadrature.f90:21</a></div></div>
+<div class="ttc" id="namespacemodule__gauss__turan__quadrature_html_a625bd31f065884f0be51c7de7cb33667"><div class="ttname"><a href="namespacemodule__gauss__turan__quadrature.html#a625bd31f065884f0be51c7de7cb33667">module_gauss_turan_quadrature::maxngt</a></div><div class="ttdeci">integer, parameter, public maxngt</div><div class="ttdoc">maximum number of nodes </div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00026">double/src/module_gauss_turan_quadrature.f90:26</a></div></div>
+<div class="ttc" id="namespacemodule__gauss__turan__quadrature_html_ab600914a398b8e5489f03aca12706de5"><div class="ttname"><a href="namespacemodule__gauss__turan__quadrature.html#ab600914a398b8e5489f03aca12706de5">module_gauss_turan_quadrature::assemble_gauss_turan</a></div><div class="ttdeci">subroutine, public assemble_gauss_turan</div><div class="ttdoc">compute nodes and weights for GTQ </div><div class="ttdef"><b>Definition:</b> <a href="double_2src_2module__gauss__turan__quadrature_8f90_source.html#l00122">double/src/module_gauss_turan_quadrature.f90:122</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2019年12月19日(木) 14時50分26秒作成 - gtq_quadp / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

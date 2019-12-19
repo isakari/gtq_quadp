@@ -1,14 +1,13 @@
 # gtq_quadp
 
-glq_quadp computes the nodes and weights for the Gauss-Turan-type quadrature with quadruple precision. 
-
-Caution: this project has not yet been completed.
+glq_quadp is a fortran code computing the nodes and weights for the Gauss-Turan-type quadrature with double or quadruple precision.
 
 # Requirement
 * Lapack
 
 # Example
 ```bash
+  cd double or quad
   cd src
   make 
   cd ../bin
