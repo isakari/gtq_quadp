@@ -23,8 +23,8 @@ module module_gauss_turan_quadrature
      type(GaussTuranQuadrature2),allocatable :: s(:)
   end type GaussTuranQuadrature
 
-  integer,parameter :: maxs=3 !< maximum s
-  integer,parameter :: maxngt=10 !< maximum number of nodes
+  integer,parameter :: maxs=30 !< maximum s
+  integer,parameter :: maxngt=100 !< maximum number of nodes
   
   !> type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ)
   !> which uses function value at n nodes.
@@ -34,7 +34,7 @@ module module_gauss_turan_quadrature
      real(16),allocatable :: we(:) !< weights
   end type GaussLegendreQuadrature
 
-  integer,parameter :: maxngl=2*(maxs+1)*maxngt-1
+  integer,parameter :: maxngl=(maxs+1)*maxngt
   type(GaussLegendreQuadrature) :: gl(maxngl)
 
   ! pointer
@@ -128,14 +128,17 @@ contains
 
     real(16) :: ahat(2*maxs+1,2*maxs+1), u(2*maxs), muhat(0:2*maxs), tmp, bb(2*maxs+1)
 
-!!$    real(16) :: x
+    real(16) :: x, st, en
     
     ! GLを準備
+    !$omp parallel do private(i) schedule(dynamic)
     do i=1,maxngl
+       write(0,*) "GL",i,"/",maxngl
        gl(i)%ng=i
        allocate(gl(i)%gz(i),gl(i)%we(i))
        call assemble_gauss_legendre(i,gl(i)%gz,gl(i)%we)
     end do
+    !$omp end parallel do
 
     ! 分点数をset
     do is=0,maxs
@@ -150,7 +153,8 @@ contains
        gt(i)%s(0)%we(0,:)=gl(i)%we(:)
     end do
     
-    do is=1,maxs !is=(1,..,maxs)階微分を使うGauss-Turan多項式の零点を探す
+    do is=1,maxs !is=(1,..,maxs)階微分を使うGauss-Turan多項式の零点を探す 
+       ! write(*,*) "GT (node)",is,"/",maxs
        
        ! Turan多項式の満たす漸化式の係数(beta)をnewton法で求める
        ! P(n;-1)(x)=0
@@ -221,6 +225,7 @@ contains
     end do
 
     do is=1,maxs ! 2*is階微分を使うGT公式の
+       ! write(*,*) "GT (weight)",is,"/",maxs       
        do n=1,maxngt ! n次の公式の
           do j=1,n ! j番分点の重みを計算する
 
@@ -284,57 +289,59 @@ contains
 
     ! 分点・重みをcheck
     do is=0,maxs
+       write(*,*) is, "s"
        do n=1,maxngt
-          write(*,*) "#", n,"-points GTQ with up to",2*is,"-th derivatives"
-          write(*,*) "# i, i-th node (x_i), weight for f^(s)(x_i), s=0,...",2*is
+          write(*,*) n, "n"
           do i=1,n
-             write(*,*) i,gt(n)%s(is)%gz(i), gt(n)%s(is)%we(0:2*is,i)
+             write(*,*) dble(gt(n)%s(is)%gz(i)), dble(gt(n)%s(is)%we(0:2*is,i)), i
           end do
        end do
     end do
 
-!!$    write(*,*) "s",sin(1.q0)-sin(-1.q0)
+!!$    st=9.d0
+!!$    en=11.d0
+!!$    write(*,*) "s",sin(en)-sin(st)
 !!$
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(0)%ng
-!!$       x=gt(3)%s(1)%gz(ig)
-!!$       tmp=tmp+cos(x)*gt(3)%s(0)%we(0,ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(0)%gz(ig)+(st+en)*0.5d0
+!!$       tmp=tmp+cos(x)*gt(3)%s(0)%we(0,ig)*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "0",tmp
 !!$    
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(1)%ng
-!!$       x=gt(3)%s(1)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(1)%gz(ig)+(st+en)*0.5d0
 !!$       tmp=tmp+(cos(x)*gt(3)%s(1)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(1)%we(1,ig)&
-!!$               -cos(x)*gt(3)%s(1)%we(2,ig))
+!!$               -cos(x)*gt(3)%s(1)%we(2,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "1",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(2)%ng
-!!$       x=gt(3)%s(2)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(2)%gz(ig)+(st+en)*0.5d0
 !!$       tmp=tmp+(cos(x)*gt(3)%s(2)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(2)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(2)%we(2,ig)&
 !!$               +sin(x)*gt(3)%s(2)%we(3,ig)&
-!!$               +cos(x)*gt(3)%s(2)%we(4,ig))
+!!$               +cos(x)*gt(3)%s(2)%we(4,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "2",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(3)%ng
-!!$       x=gt(3)%s(3)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(3)%gz(ig)+(st+en)*0.5d0
 !!$       tmp=tmp+(cos(x)*gt(3)%s(3)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(3)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(3)%we(2,ig)&
 !!$               +sin(x)*gt(3)%s(3)%we(3,ig)&
 !!$               +cos(x)*gt(3)%s(3)%we(4,ig)&
 !!$               -sin(x)*gt(3)%s(3)%we(5,ig)&
-!!$               -cos(x)*gt(3)%s(3)%we(6,ig))
+!!$               -cos(x)*gt(3)%s(3)%we(6,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "3",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(4)%ng
-!!$       x=gt(3)%s(4)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(4)%gz(ig)+(st+en)*0.5d0
 !!$       tmp=tmp+(cos(x)*gt(3)%s(4)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(4)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(4)%we(2,ig)&
@@ -343,12 +350,12 @@ contains
 !!$               -sin(x)*gt(3)%s(4)%we(5,ig)&
 !!$               -cos(x)*gt(3)%s(4)%we(6,ig)&
 !!$               +sin(x)*gt(3)%s(4)%we(7,ig)&
-!!$               +cos(x)*gt(3)%s(4)%we(8,ig))
+!!$               +cos(x)*gt(3)%s(4)%we(8,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "4",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(5)%ng
-!!$       x=gt(3)%s(5)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(5)%gz(ig)+(st+en)*0.5d0
 !!$       tmp=tmp+(cos(x)*gt(3)%s(5)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(5)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(5)%we(2,ig)&
@@ -359,12 +366,12 @@ contains
 !!$               +sin(x)*gt(3)%s(5)%we(7,ig)&
 !!$               +cos(x)*gt(3)%s(5)%we(8,ig)&
 !!$               -sin(x)*gt(3)%s(5)%we(9,ig)&
-!!$               -cos(x)*gt(3)%s(5)%we(10,ig))
+!!$               -cos(x)*gt(3)%s(5)%we(10,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "5",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(6)%ng
-!!$       x=gt(3)%s(6)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(6)%gz(ig)+(st+en)*0.5d0       
 !!$       tmp=tmp+(cos(x)*gt(3)%s(6)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(6)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(6)%we(2,ig)&
@@ -377,12 +384,12 @@ contains
 !!$               -sin(x)*gt(3)%s(6)%we(9,ig)&
 !!$               -cos(x)*gt(3)%s(6)%we(10,ig)&
 !!$               +sin(x)*gt(3)%s(6)%we(11,ig)&
-!!$               +cos(x)*gt(3)%s(6)%we(12,ig))
+!!$               +cos(x)*gt(3)%s(6)%we(12,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "6",tmp
 !!$    tmp=0.q0
 !!$    do ig=1,gt(3)%s(7)%ng
-!!$       x=gt(3)%s(7)%gz(ig)
+!!$       x=(en-st)*0.5d0*gt(3)%s(7)%gz(ig)+(st+en)*0.5d0       
 !!$       tmp=tmp+(cos(x)*gt(3)%s(7)%we(0,ig)&
 !!$               -sin(x)*gt(3)%s(7)%we(1,ig)&
 !!$               -cos(x)*gt(3)%s(7)%we(2,ig)&
@@ -395,7 +402,7 @@ contains
 !!$               -sin(x)*gt(3)%s(7)%we(9,ig)&
 !!$               -cos(x)*gt(3)%s(7)%we(10,ig)&
 !!$               +sin(x)*gt(3)%s(7)%we(11,ig)&
-!!$               +cos(x)*gt(3)%s(7)%we(12,ig))
+!!$               +cos(x)*gt(3)%s(7)%we(12,ig))*(en-st)*0.5d0
 !!$    end do
 !!$    write(*,*) "7",tmp
     

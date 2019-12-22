@@ -33,7 +33,7 @@ module module_gauss_turan_quadrature
      real(8),allocatable :: we(:) !< weights
   end type GaussLegendreQuadrature
 
-  integer,parameter :: maxngl=2*(maxs+1)*maxngt-1
+  integer,parameter :: maxngl=(maxs+1)*maxngt
   type(GaussLegendreQuadrature) :: gl(maxngl)
 
   ! pointer
