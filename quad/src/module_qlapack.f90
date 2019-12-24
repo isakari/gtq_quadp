@@ -2234,14 +2234,18 @@ contains
           end do
        end if
        ar=1.q0/a(k,k)
+       !$omp parallel
+       !$omp do
        do i=k+1,n
           a(i,k)=a(i,k)*ar
        end do
+       !$omp do
        do j=k+1,n
           do i=k+1,n
              a(i,j)=a(i,j)-a(i,k)*a(k,j)
           end do
        end do
+       !$omp end parallel
     end do
 
     y(1)=b(ip(1))

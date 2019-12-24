@@ -1,4 +1,5 @@
 module module_gauss_turan_quadrature
+  use omp_lib
   use module_math
   use module_qlapack
   use module_gauss_legendre_quadrature
@@ -23,8 +24,8 @@ module module_gauss_turan_quadrature
      type(GaussTuranQuadrature2),allocatable :: s(:)
   end type GaussTuranQuadrature
 
-  integer,parameter :: maxs=30 !< maximum s
-  integer,parameter :: maxngt=100 !< maximum number of nodes
+  integer,parameter :: maxs=10 !< maximum s
+  integer,parameter :: maxngt=30 !< maximum number of nodes
   
   !> type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ)
   !> which uses function value at n nodes.
@@ -129,6 +130,8 @@ contains
     real(16) :: ahat(2*maxs+1,2*maxs+1), u(2*maxs), muhat(0:2*maxs), tmp, bb(2*maxs+1)
 
     real(16) :: x, st, en
+
+    real(8) :: t
     
     ! GLを準備
     !$omp parallel do private(i) schedule(dynamic)
@@ -154,8 +157,8 @@ contains
     end do
     
     do is=1,maxs !is=(1,..,maxs)階微分を使うGauss-Turan多項式の零点を探す 
-       ! write(*,*) "GT (node)",is,"/",maxs
-       
+       write(0,*) "GT (node)",is,"/",maxs
+
        ! Turan多項式の満たす漸化式の係数(beta)をnewton法で求める
        ! P(n;-1)(x)=0
        ! P(n;0)(x)=1
@@ -167,12 +170,15 @@ contains
        bet(3:)=0.q0
 
        do n=2,maxngt ! n=2次公式から順番に
+          write(0,*) "GT (node)",is,"/",maxs, n,"/",maxngt
           ngl=(is+1)*n ! ngl点のGL公式でfの値を計算し
           if(n.gt.2) bet(n-1)=bet(n-2)
+          t=omp_get_wtime()
           do ! Newton法で
              f(:)=0.q0 ! f(beta)=0となるbetaを探す
              jac(:,:)=0.q0 ! <=Newton法で使うJacobi行列
              ! fとそのJacobianを計算
+             !$omp parallel do private(ig,i,p,j,b,q) reduction(+:f,jac)
              do ig=1,ngl
                 do i=0,n
                    p(i)=poly(n,i,bet,gl(ngl)%gz(ig))
@@ -193,13 +199,16 @@ contains
                    end do
                 end do
              end do
+             !$omp end parallel do
              ! Newton法の更新量を求める
              w=f
              call lu_and_solve(n-1,jac(1:n-1,1:n-1),w(1:n-1),ipiv(1:n-1))
-             if(sqrt(dot_product(w(1:n-1),w(1:n-1))).le.epsilon(1.q0)) exit
+             write(0,*) sqrt(dot_product(w(1:n-1),w(1:n-1)))
+             if(sqrt(dot_product(w(1:n-1),w(1:n-1))).le.10.q0*epsilon(1.q0)) exit
              bet(:)=bet(:)-w(:) ! 更新
           end do
-
+          !write(0,*) omp_get_wtime()-t
+          
           td(:)=0.q0
           do i=1,n-1
              tl(i)=sqrt(bet(i))
@@ -225,7 +234,7 @@ contains
     end do
 
     do is=1,maxs ! 2*is階微分を使うGT公式の
-       ! write(*,*) "GT (weight)",is,"/",maxs       
+       write(0,*) "GT (weight)",is,"/",maxs       
        do n=1,maxngt ! n次の公式の
           do j=1,n ! j番分点の重みを計算する
 
@@ -292,8 +301,8 @@ contains
        write(*,*) is, "s"
        do n=1,maxngt
           write(*,*) n, "n"
-          do i=1,n
-             write(*,*) dble(gt(n)%s(is)%gz(i)), dble(gt(n)%s(is)%we(0:2*is,i)), i
+          do i=1,n 
+            write(*,*) dble(gt(n)%s(is)%gz(i)), dble(gt(n)%s(is)%we(0:2*is,i)), i
           end do
        end do
     end do
