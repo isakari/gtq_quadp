@@ -2,8 +2,8 @@ TARGET = ../bin/a.out
 
 FC = gfortran
 USE_OPENMP = 1
-# OPT = 1
-DBG = 1
+OPT = 1
+# DBG = 1
 OBJS = module_globals.o \
 	module_autodiff.o \
 	module_math.o \

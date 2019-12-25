@@ -7,6 +7,6 @@ module module_globals
   real(8),parameter :: pi=acos(-1.d0)
   integer,parameter :: ntaylor=20
   integer,parameter :: maxs=ntaylor/2
-  integer,parameter :: maxngt=10
+  integer,parameter :: maxngt=30
   
 end module module_globals

@@ -61,7 +61,7 @@ g19=data[:,1]
 plt.xlabel('The number of nodes (n)') # x軸のラベル
 plt.ylabel('Relative $\ell_2$ error') # y軸のラベル
 
-plt.title('$\int_{0}^{30} \sin(x)/x \mathrm{d}x$')
+plt.title('$\int_{1}^{30} \sin(x)/x \mathrm{d}x$')
 plt.yscale('log')
 plt.ylim(10**(-16), 10**6)
 plt.grid(linestyle='--')
@@ -76,4 +76,4 @@ plt.plot(s, g17, marker='o', linestyle='-', label='$s=7$')
 plt.plot(s, g18, marker='o', linestyle='-', label='$s=8$')
 plt.plot(s, g19, marker='o', linestyle='-', label='$s=9$')
 plt.legend()
-plt.savefig('int_0_30_sinx_dx_x.eps')
+plt.savefig('int_1_30_sinx_dx_x.eps')

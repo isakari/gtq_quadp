@@ -31,14 +31,14 @@ contains
     ! test%seikai=0.620673469663168096042377995183618508711157d0
 
     ! int_[-1->1] 1/(1+25*x^2) dx
-    ! test%st=-1.d0
-    ! test%en=1.d0
-    ! test%seikai=(atan(5.d0*test%en)-atan(5.d0*test%st))/5.d0
+    test%st=-1.d0
+    test%en=1.d0
+    test%seikai=(atan(5.d0*test%en)-atan(5.d0*test%st))/5.d0
 
     ! int_[0,1] bessel_j0(x) dx
-    test%st=0.d0
-    test%en=1.d0
-    test%seikai=0.919730410089760239314421194080619970661d0
+    ! test%st=0.d0
+    ! test%en=1.d0
+    ! test%seikai=0.919730410089760239314421194080619970661d0
 
     ! test%st=0.d0
     ! test%en=2.d0
@@ -55,8 +55,8 @@ contains
     !f=sin(x)
     !f=sin(x)/x
     !f=sin(x)/x
-    !f=1.d0/(1.d0+25.d0*x*x)
-    f=bessel_j0(x)
+    f=1.d0/(1.d0+25.d0*x*x)
+    !f=bessel_j0(x)
     !f=x**29
   end function f
 
@@ -66,8 +66,8 @@ contains
     !Df=sin(x)
     !Df=sin(x)/x
     !Df=sin(x)/x
-    !Df=1.d0/(1.d0+25.d0*x*x)
-    Df=bessel_j0(x)
+    Df=1.d0/(1.d0+25.d0*x*x)
+    !Df=bessel_j0(x)
     !Df=x**29
   end function Df
   

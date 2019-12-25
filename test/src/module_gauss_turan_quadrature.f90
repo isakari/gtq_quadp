@@ -26,7 +26,8 @@ contains
     integer,intent(in) :: maxs, maxngt
     type(GaussTuranQuadrature),intent(inout),target :: gt_(:)
     integer :: ig, is, iis, iin, n
-
+    character(len=64) :: fn_gt
+    
     do ig=1,maxngt
        allocate(gt_(ig)%s(0:maxs)) ! gt()%s(0)はGauss-Legendre
        do is=0,maxs
@@ -36,7 +37,8 @@ contains
     end do
     gt=>gt_
 
-    open(1,file="./gt_s10_n10.conf")
+    write(fn_gt, '(a,i3.3,a,i3.3,a)') "gt_s",maxs,"_n",maxngt,".conf"    
+    open(1,file=fn_gt)
     do iis=0,maxs
        read(1,*) is
        if(is.ne.iis) stop "aho"
