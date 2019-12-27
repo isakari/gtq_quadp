@@ -38,6 +38,7 @@ contains
     gt=>gt_
 
     write(fn_gt, '(a,i3.3,a,i3.3,a)') "gt_s",maxs,"_n",maxngt,".conf"    
+    write(*,*) fn_gt
     open(1,file=fn_gt)
     do iis=0,maxs
        read(1,*) is

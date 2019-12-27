@@ -16,9 +16,9 @@ contains
     type(IntegralTest),intent(out) :: test
 
     ! int_[a->b](sin(x))dx
-    ! test%st=0.d0
-    ! test%en=30.d0
-    ! test%seikai=-cos(test%en)+cos(test%st)
+    test%st=0.d0
+    test%en=30.d0
+    test%seikai=-cos(test%en)+cos(test%st)
 
     !int_[0.01->2](sin(x)/x)dx
     ! test%st=0.01d0
@@ -31,8 +31,8 @@ contains
     ! test%seikai=0.620673469663168096042377995183618508711157d0
 
     ! int_[-1->1] 1/(1+25*x^2) dx
-    test%st=-1.d0
-    test%en=1.d0
+    test%st=-5.d0
+    test%en=5.d0
     test%seikai=(atan(5.d0*test%en)-atan(5.d0*test%st))/5.d0
 
     ! int_[0,1] bessel_j0(x) dx
