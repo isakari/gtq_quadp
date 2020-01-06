@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>gtq_quadp: TYPE module_gauss_turan_quadrature::gausslegendrequadrature</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">gtq_quadp
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacemodule__gauss__turan__quadrature.html">module_gauss_turan_quadrature</a></li><li class="navelem"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html">gausslegendrequadrature</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pri-attribs">非公開変数類</a> &#124;
+<a href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle">
+<div class="title">TYPE module_gauss_turan_quadrature::gausslegendrequadrature</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ) which uses function value at n nodes.  
+ <a href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#details">[詳解]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+非公開変数類</h2></td></tr>
+<tr class="memitem:a74a0d91b69ee2d25bf29bd28507c16ad"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#a74a0d91b69ee2d25bf29bd28507c16ad">ng</a></td></tr>
+<tr class="memdesc:a74a0d91b69ee2d25bf29bd28507c16ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">the num of nodes  <a href="#a74a0d91b69ee2d25bf29bd28507c16ad">[詳解]</a><br /></td></tr>
+<tr class="separator:a74a0d91b69ee2d25bf29bd28507c16ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f59a84eae7432b25abd4904c09c6f7"><td class="memItemLeft" align="right" valign="top">real(16), dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#a25f59a84eae7432b25abd4904c09c6f7">gz</a></td></tr>
+<tr class="memdesc:a25f59a84eae7432b25abd4904c09c6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">nodes  <a href="#a25f59a84eae7432b25abd4904c09c6f7">[詳解]</a><br /></td></tr>
+<tr class="separator:a25f59a84eae7432b25abd4904c09c6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5a5e75d5add51f8a076835c20b886a1"><td class="memItemLeft" align="right" valign="top">real(16), dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmodule__gauss__turan__quadrature_1_1gausslegendrequadrature.html#ad5a5e75d5add51f8a076835c20b886a1">we</a></td></tr>
+<tr class="memdesc:ad5a5e75d5add51f8a076835c20b886a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">weights  <a href="#ad5a5e75d5add51f8a076835c20b886a1">[詳解]</a><br /></td></tr>
+<tr class="separator:ad5a5e75d5add51f8a076835c20b886a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ) which uses function value at n nodes. </p>
+
+<p class="definition"> <a class="el" href="module__gauss__turan__quadrature_8f90_source.html">module_gauss_turan_quadrature.f90</a> の <a class="el" href="module__gauss__turan__quadrature_8f90_source.html#l00032">32</a> 行目に定義があります。</p>
+</div><h2 class="groupheader">メンバ詳解</h2>
+<a id="a25f59a84eae7432b25abd4904c09c6f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f59a84eae7432b25abd4904c09c6f7">&#9670;&nbsp;</a></span>gz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">real(16), dimension(:), allocatable module_gauss_turan_quadrature::gausslegendrequadrature::gz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>nodes </p>
+
+<p class="definition"> <a class="el" href="module__gauss__turan__quadrature_8f90_source.html">module_gauss_turan_quadrature.f90</a> の <a class="el" href="module__gauss__turan__quadrature_8f90_source.html#l00034">34</a> 行目に定義があります。</p>
+<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;     <span class="keywordtype">real(16)</span>,<span class="keywordtype">allocatable</span> :: gz(:)</div></div><!-- fragment -->
+</div>
+</div>
+<a id="a74a0d91b69ee2d25bf29bd28507c16ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74a0d91b69ee2d25bf29bd28507c16ad">&#9670;&nbsp;</a></span>ng</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer module_gauss_turan_quadrature::gausslegendrequadrature::ng</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>the num of nodes </p>
+
+<p class="definition"> <a class="el" href="module__gauss__turan__quadrature_8f90_source.html">module_gauss_turan_quadrature.f90</a> の <a class="el" href="module__gauss__turan__quadrature_8f90_source.html#l00033">33</a> 行目に定義があります。</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;     <span class="keywordtype">integer</span> :: ng</div></div><!-- fragment -->
+</div>
+</div>
+<a id="ad5a5e75d5add51f8a076835c20b886a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5a5e75d5add51f8a076835c20b886a1">&#9670;&nbsp;</a></span>we</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">real(16), dimension(:), allocatable module_gauss_turan_quadrature::gausslegendrequadrature::we</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>weights </p>
+
+<p class="definition"> <a class="el" href="module__gauss__turan__quadrature_8f90_source.html">module_gauss_turan_quadrature.f90</a> の <a class="el" href="module__gauss__turan__quadrature_8f90_source.html#l00035">35</a> 行目に定義があります。</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;     <span class="keywordtype">real(16)</span>,<span class="keywordtype">allocatable</span> :: we(:)</div></div><!-- fragment -->
+</div>
+</div>
+<hr/>次のファイルから型の詳解が抽出されました:<ul>
+<li><a class="el" href="module__gauss__turan__quadrature_8f90_source.html">module_gauss_turan_quadrature.f90</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2020年01月06日(月) 14時11分14秒作成 - gtq_quadp / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

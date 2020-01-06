@@ -25,7 +25,7 @@ module module_gauss_turan_quadrature
   end type GaussTuranQuadrature
 
   integer,parameter :: maxs=10 !< maximum s
-  integer,parameter :: maxngt=100 !< maximum number of nodes
+  integer,parameter :: maxngt=90 !< maximum number of nodes
   
   !> type(GaussLegendreQuadrature) gl(n) contains nodes and weights for Gauss-Legendre quadrature (GLQ)
   !> which uses function value at n nodes.

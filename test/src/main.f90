@@ -35,7 +35,8 @@ program main
         write(10+is,*) ng, max(abs(og-test%seikai)/test%seikai,epsilon(1.d0))
      end do
   end do
-  
+
+  call uninit_autodiff(choose)
   call uninit_gauss_turan(maxs,maxngt,gt)
   
 end program main

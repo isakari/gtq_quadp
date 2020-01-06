@@ -1,7 +1,0 @@
-<map id="module_gauss_turan_quadrature::assemble_gauss_turan" name="module_gauss_turan_quadrature::assemble_gauss_turan">
-<area shape="rect" id="node2" href="$namespacemodule__gauss__legendre__quadrature.html#a02f6fa3f9307cc4f6744673edb088f5d" title="ガウス積分の分点と重みを計算する " alt="" coords="208,5,371,61"/>
-<area shape="rect" id="node3" href="$namespacemodule__gauss__turan__quadrature.html#a7cbcb11d76d477dae2d6aee69ba8585b" title="Kroneckerのデルタ " alt="" coords="218,86,361,127"/>
-<area shape="rect" id="node4" href="$namespacemodule__gauss__turan__quadrature.html#a7a6e62bc8e140f165d3e458e80448916" title="Turan多項式のbeta微分 " alt="" coords="218,151,361,193"/>
-<area shape="rect" id="node5" href="$namespacemodule__gauss__turan__quadrature.html#aff45d01ffd3d4c840a8f9e84ccc5562b" title="Turan多項式 " alt="" coords="419,181,561,222"/>
-<area shape="rect" id="node6" href="$namespacemodule__math.html#a00fa9e7b0e4209e2886f36a35f7447f4" title="module_math::factorial" alt="" coords="212,268,367,295"/>
-</map>
