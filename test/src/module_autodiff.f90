@@ -1,3 +1,4 @@
+!> 自動微分
 module module_autodiff
   use module_globals
   implicit none
@@ -5,26 +6,27 @@ module module_autodiff
   integer,parameter :: n=ntaylor
 
   private
-  public iCj, init_autodiff, uninit_autodiff
+  public iCj, init_autodiff, uninit_autodiff, ad
 
   !-------------------------------------------------------------------------------------------------
   type iCj
      real(8),allocatable :: a(:)
   end type iCj
-  type(iCj),pointer :: choose(:) !choose(i)%a(j)=iCjを(integer overflowを防ぐため)real(8)で保持
+  type(iCj),pointer :: choose(:) !< choose(i)%a(j)=iCjを(integer overflowを防ぐため)real(8)で保持
 
-  real(8) :: fact(0:n) !fact(n)=n!
+  real(8) :: fact(0:n) !< fact(n)=n!
 
   integer :: maxfdb
+  !> Faa Di Brunoの公式
   type FaaDiBruno
      ! \sum i x Mi =nを満たすリストと(i,Mi)に依って決まるFaa di Brunoの公式に現れる係数を保存
-     integer :: n !n階微分に寄与する
-     integer :: s !非零のMiの数
-     integer,allocatable :: part(:) !整数nの分割
-     integer,allocatable :: m(:) !非零のMiのリスト
-     integer :: sum_m !sum(m(:))
-     integer,allocatable :: i(:) !m(:)に対応するiのリスト
-     real(8),allocatable :: c ![n!/(M1!(1!)^M1,...,Mn!(n!)^Mn]を(integer overflowを防ぐため)real(8)で保持
+     integer :: n !< n階微分に寄与する
+     integer :: s !< 非零のMiの数
+     integer,allocatable :: part(:) !< 整数nの分割
+     integer,allocatable :: m(:) !< 非零のMiのリスト
+     integer :: sum_m !< sum(m(:))
+     integer,allocatable :: i(:) !< m(:)に対応するiのリスト
+     real(8),allocatable :: c !< [n!/(M1!(1!)^M1,...,Mn!(n!)^Mn]を(integer overflowを防ぐため)real(8)で保持
   end type FaaDiBruno
   type(FaaDiBruno),allocatable :: fdb(:)
 
@@ -34,7 +36,7 @@ module module_autodiff
   !-------------------------------------------------------------------------------------------------
 
   !-------------------------------------------------------------------------------------------------
-  ! define Dcomplex8 type
+  !> Dcomplex8 type
   public Dcomplex8
   type Dcomplex8
      complex(8) :: f(0:n) !f(i)=(d^i)f/d(x^i) (for i=0...n)
@@ -42,7 +44,7 @@ module module_autodiff
   !-------------------------------------------------------------------------------------------------
 
   !-------------------------------------------------------------------------------------------------  
-  ! Equal assignment
+  !> Equal assignment
   public assignment (=)
   interface assignment (=)
      module procedure EqualDR  !Dcomplex=real
@@ -50,13 +52,13 @@ module module_autodiff
      module procedure EqualDD !Dcomplex=Dcomplex
   end interface assignment (=)
 
-  ! unary operator +
+  !> unary operator +
   public operator (+)
   interface operator (+)
      module procedure PlusD
   end interface operator (+)
 
-  ! Addition operator
+  !> Addition operator
   interface operator (+)
      module procedure AddRD
      module procedure AddCD
@@ -65,13 +67,13 @@ module module_autodiff
      module procedure AddDD
   end interface operator (+)
 
-  ! Unary operator -
+  !> Unary operator -
   public operator (-)  
   interface operator (-)
      module procedure MinusD
   end interface operator (-)
 
-  ! Subtraction operator
+  !> Subtraction operator
   interface operator (-)
      module procedure SubtractRD
      module procedure SubtractCD
@@ -80,7 +82,7 @@ module module_autodiff
      module procedure SubtractDD
   end interface operator (-)
 
-  ! Multiplication operator
+  !> Multiplication operator
   public operator (*)
   interface operator (*)
      module procedure MultiplyRD
@@ -90,7 +92,7 @@ module module_autodiff
      module procedure MultiplyDD
   end interface operator (*)
 
-  ! Division operator
+  !> Division operator
   public operator (/)
   interface operator (/)
      module procedure DivideDD
@@ -100,7 +102,7 @@ module module_autodiff
      module procedure DivideCD
   end interface operator (/)
 
-  ! Power operator
+  !> Power operator
   public operator (**)
   interface operator (**)
      module procedure PowerDI
@@ -186,19 +188,19 @@ module module_autodiff
   !    module procedure nintDual
   ! end interface nint
 
-  ! Real function
+  !> Real function
   public real
   interface real
      module procedure realD
   end interface real
 
-  ! Imag function
+  !> Imag function
   public aimag
   interface aimag
      module procedure aimagD
   end interface aimag
  
-  ! Congjugate function
+  !> Congjugate function
   public conjg
   interface conjg
      module procedure conjgD
@@ -212,80 +214,80 @@ module module_autodiff
   !    module procedure sign_rd
   ! end interface sign
 
-  ! Sine function
+  !> Sine function
   public sin
   interface sin
      module procedure sinD
   end interface sin
 
-  ! Cosine function
+  !> Cosine function
   public cos
   interface cos
      module procedure cosD
   end interface cos
 
-  ! Tangent function
+  !> Tangent function
   public tan
   interface tan
      module procedure tanD
   end interface tan
 
-  ! Sqrt function
+  !> Sqrt function
   public sqrt
   interface sqrt
      module procedure sqrtD
   end interface sqrt
 
-  ! Log function
+  !> Log function
   public log
   interface log
      module procedure logD
   end interface log
 
-  ! Log10 function
+  !> Log10 function
   public log10
   interface log10
      module procedure log10C
      module procedure log10D
   end interface log10
 
-  ! Exp function
+  !> Exp function
   public exp
   interface exp
      module procedure expD
   end interface exp
 
-  ! Sinh function
+  !> Sinh function
   public sinh
   interface sinh
      module procedure sinhD
   end interface sinh
 
-  ! Cosh function
+  !> Cosh function
   public cosh
   interface cosh
      module procedure coshD
   end interface cosh
 
-  ! Tanh function
+  !> Tanh function
   public tanh
   interface tanh
      module procedure tanhD
   end interface tanh
 
-  ! Acos function
+  !> Acos function
   public acos  
   interface acos
      module procedure acosD
   end interface acos
 
-  ! Asin function
+  !> Asin function
   public asin
   interface asin
      module procedure asinD
   end interface asin
 
-  ! Atan function
+  !> Atan function
   public atan
   interface atan
      module procedure atanD
@@ -302,41 +304,43 @@ module module_autodiff
   !    module procedure atan2CD     
   ! end interface atan2
 
-  ! Bessel (Jn) function
+  !> Bessel (Jn) function
   public bessel_jn
   interface bessel_jn
      module procedure bessel_jnD
   end interface bessel_jn
 
+  !> Bessel (J0) function  
   public bessel_j0
   interface bessel_j0
      module procedure bessel_j0D
   end interface bessel_j0
 
+  !> Bessel (J1) function
   public bessel_j1
   interface bessel_j1
      module procedure bessel_j1D
   end interface bessel_j1
 
-  ! Bessel (Yn) function
+  !> Bessel (Yn) function
   public bessel_yn
   interface bessel_yn
      module procedure bessel_ynD
   end interface bessel_yn
 
-  ! Bessel (Yn) function
+  !> Bessel (Y0) function
   public bessel_y0
   interface bessel_y0
      module procedure bessel_y0D
   end interface bessel_y0
 
-  ! Bessel (Yn) function
+  !> Bessel (Y1) function
   public bessel_y1
   interface bessel_y1
      module procedure bessel_y1D
   end interface bessel_y1
 
-  ! Hankel (H^(m)_n) function
+  !> Hankel (H^(m)_n) function
   public hankel
   interface hankel
      module procedure hankelD
@@ -365,7 +369,18 @@ module module_autodiff
 
 contains
 
+  !> assign complex(8) independent variable to type(Dcomplex8)
+  type(Dcomplex8) function ad(z) result(out)
+    complex(8),intent(in) :: z
+
+    out%f(0)=z
+    out%f(1)=one
+    out%f(2:ntaylor)=zero
+
+  end function ad
+  
   !=================================================================================================
+  !> compute binomial coefficient
   subroutine gen_choose(choose_)
     type(iCj),intent(inout),target :: choose_(0:n)
     integer :: i, j
@@ -392,6 +407,7 @@ contains
 
   !-------------------------------------------------------------------------------------------------
 
+  !> compute and store factorial
   subroutine gen_factorial
     integer :: i
 
@@ -404,6 +420,8 @@ contains
   end subroutine gen_factorial
 
   !-------------------------------------------------------------------------------------------------
+
+  !> the number of partition of an integer
   recursive subroutine count_partitions(p, px)
     implicit none
     integer, intent(in) :: p, px
@@ -424,6 +442,7 @@ contains
 
   !-------------------------------------------------------------------------------------------------
 
+  !> partition of an integer  
   recursive subroutine gen_partition(p, px)
     implicit none
     integer, intent(in) :: p, px
@@ -447,6 +466,7 @@ contains
 
   !-------------------------------------------------------------------------------------------------
 
+  !> compute coefficients for Faa di Bruno formula
   subroutine gen_fdb
     integer :: i, j, cnt
 
@@ -509,7 +529,7 @@ contains
   end subroutine gen_fdb
 
   !-------------------------------------------------------------------------------------------------  
-
+  !> initialise
   subroutine init_autodiff(choose_)
     type(iCj),intent(inout) :: choose_(0:n)
     call gen_choose(choose_)
@@ -518,7 +538,7 @@ contains
   end subroutine init_autodiff
 
   !-------------------------------------------------------------------------------------------------
-
+  !> finalise
   subroutine uninit_autodiff(choose_)
     type(iCj),intent(inout) :: choose_(0:n)
     integer :: i
@@ -530,10 +550,7 @@ contains
 
   !=================================================================================================  
 
-  !------------------------------------
-  ! Functions for the equal assignment.
-  !------------------------------------
-
+  !> Functions for the equal assignment.
   elemental subroutine EqualDR(res,inp)
     type(Dcomplex8),intent(out) :: res
     real(8),intent(in) :: inp
@@ -541,6 +558,7 @@ contains
     res%f(1:n)=0.d0
   end subroutine EqualDR
 
+  !> Functions for the equal assignment.  
   elemental subroutine EqualDC(res,inp)
     type(Dcomplex8),intent(out) :: res
     complex(8),intent(in) :: inp
@@ -548,26 +566,21 @@ contains
     res%f(1:n)=0.d0
   end subroutine EqualDC
 
+  !> Functions for the equal assignment.  
   elemental subroutine EqualDD(res,inp)
     type(Dcomplex8),intent(out) :: res
     type(Dcomplex8),intent(in) :: inp
     res%f(:)=inp%f(:)
   end subroutine EqualDD
 
-  !-----------------------------------
-  ! Function for the unary operator +.
-  !-----------------------------------
-
+  !> Function for the unary operator +.
   elemental function PlusD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8):: v2
     v2%f(:)=v1%f(:)
   end function PlusD
 
-  !-------------------------------------
-  ! Functions for the addition operator.
-  !-------------------------------------
-
+  !> Functions for the addition operator.
   elemental function AddRD(v1,v2) result(v3)
     real(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -576,6 +589,7 @@ contains
     v3%f(1:n)=v2%f(1:n)
   end function AddRD
 
+  !> Functions for the addition operator.  
   elemental function AddDR(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     real(8),intent(in) :: v2
@@ -584,6 +598,7 @@ contains
     v3%f(1:n)=v1%f(1:n)
   end function AddDR
 
+  !> Functions for the addition operator.  
   elemental function AddCD(v1,v2) result(v3)
     complex(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -592,6 +607,7 @@ contains
     v3%f(1:n)=v2%f(1:n)
   end function AddCD
 
+  !> Functions for the addition operator.
   elemental function AddDC(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     complex(8),intent(in) :: v2
@@ -599,27 +615,22 @@ contains
     v3%f(0)=v1%f(0)+v2
     v3%f(1:n)=v1%f(1:n)
   end function AddDC
-
+  
+  !> Functions for the addition operator.
   elemental function AddDD(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1, v2
     type(Dcomplex8) :: v3
     v3%f(:)=v1%f(:)+v2%f(:)
   end function AddDD
 
-  !-----------------------------------
-  ! Function for the unary operator -.
-  !-----------------------------------
-  
+  !> Function for the unary operator -.
   elemental function MinusD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8):: v2
     v2%f(:)=-v1%f(:)
   end function MinusD
 
-  !----------------------------------------
-  ! Functions for the subtraction operator.
-  !----------------------------------------
-
+  !> Functions for the subtraction operator.
   elemental function SubtractRD(v1,v2) result(v3)
     real(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -628,6 +639,7 @@ contains
     v3%f(1:n)=-v2%f(1:n)
   end function SubtractRD
 
+  !> Functions for the subtraction operator.  
   elemental function SubtractDR(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     real(8),intent(in) :: v2
@@ -636,6 +648,7 @@ contains
     v3%f(1:n)=v1%f(1:n)
   end function SubtractDR
 
+  !> Functions for the subtraction operator.  
   elemental function SubtractCD(v1,v2) result(v3)
     complex(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -644,6 +657,7 @@ contains
     v3%f(1:n)=-v2%f(1:n)
   end function SubtractCD
 
+  !> Functions for the subtraction operator.  
   elemental function SubtractDC(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     complex(8),intent(in) :: v2
@@ -652,16 +666,14 @@ contains
     v3%f(1:n)=v1%f(1:n)
   end function SubtractDC
 
+  !> Functions for the subtraction operator.  
   elemental function SubtractDD(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1, v2
     type(Dcomplex8) :: v3
     v3%f(:)=v1%f(:)-v2%f(:)
   end function SubtractDD
   
-  !-------------------------------------------
-  ! Functions for the multiplication operator.
-  !-------------------------------------------
-
+  !> Functions for the multiplication operator.
   elemental function MultiplyRD(v1,v2) result(v3)
     real(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -669,13 +681,15 @@ contains
     v3%f(:)=v1*v2%f(:)
   end function MultiplyRD
 
+  !> Functions for the multiplication operator.  
   elemental function MultiplyDR(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     real(8),intent(in) :: v2
     type(Dcomplex8) :: v3
     v3%f(:)=v1%f(:)*v2
   end function MultiplyDR
-  
+
+  !> Functions for the multiplication operator.  
   elemental function MultiplyCD(v1,v2) result(v3)
     complex(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -683,6 +697,7 @@ contains
     v3%f(:)=v1*v2%f(:)
   end function MultiplyCD
 
+  !> Functions for the multiplication operator.
   elemental function MultiplyDC(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     complex(8),intent(in) :: v2
@@ -690,6 +705,7 @@ contains
     v3%f(:)=v1%f(:)*v2
   end function MultiplyDC
 
+  !> Functions for the multiplication operator.  
   elemental function MultiplyDD(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -704,10 +720,7 @@ contains
     end do
   end function MultiplyDD
 
-  !-------------------------------------
-  ! Function for the inversion operator.
-  !-------------------------------------
-
+  !> Function for the inversion operator.
   elemental function invertD(inp) result(res)
     type(Dcomplex8),intent(in) :: inp
     type(Dcomplex8) :: res
@@ -724,16 +737,14 @@ contains
     res=polyfdb(fext,inp)
   end function invertD
 
-  !-------------------------------------
-  ! Functions for the division operator.
-  !-------------------------------------
-
+  !> Functions for the division operator.
   elemental function divideDD(v1,v2) result(v3)
     type(Dcomplex8), intent(in) :: v1, v2
     type(Dcomplex8) :: v3
     v3=v1*invertD(v2)
   end function divideDD
 
+  !> Functions for the division operator.  
   elemental function divideDR(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     real(8),intent(in) :: v2
@@ -741,13 +752,15 @@ contains
     v3%f(:)=v1%f(:)/v2
   end function divideDR
 
+  !> Functions for the division operator.  
   elemental function divideRD(v1,v2) result(v3)
     real(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
     type(Dcomplex8) :: v3
     v3=v1*invertD(v2)
   end function divideRD
-  
+
+  !> Functions for the division operator.  
   elemental function divideDC(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     complex(8),intent(in) :: v2
@@ -755,6 +768,7 @@ contains
     v3%f(:)=v1%f(:)/v2
   end function divideDC
 
+  !> Functions for the division operator.  
   elemental function divideCD(v1,v2) result(v3)
     complex(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -762,10 +776,7 @@ contains
     v3=v1*invertD(v2)
   end function divideCD
   
-  !-------------------------------------
-  ! Functions for the power operator.
-  !-------------------------------------
-
+  !> Functions for the power operator.
   elemental function PowerDI(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     integer,intent(in) :: v2
@@ -784,6 +795,7 @@ contains
     v3=polyfdb(fext,v1)
   end function PowerDI
 
+  !> Functions for the power operator.  
   elemental function PowerDR(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     real,intent(in) :: v2
@@ -802,6 +814,7 @@ contains
     v3=polyfdb(fext,v1)
   end function PowerDR
 
+  !> Functions for the power operator.  
   elemental function PowerDC(v1,v2) result(v3)
     type(Dcomplex8),intent(in) :: v1
     complex(8),intent(in) :: v2
@@ -819,6 +832,7 @@ contains
     v3=polyfdb(fext,v1)
   end function PowerDC
 
+  !> Functions for the power operator.  
   elemental function PowerRD(v1,v2) result(v3)
     real(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -832,6 +846,7 @@ contains
     v3=polyfdb(fext,v2)
   end function PowerRD
 
+  !> Functions for the power operator.  
   elemental function PowerCD(v1,v2) result(v3)
     complex(8),intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -1046,7 +1061,7 @@ contains
   !----------------
   ! Math functions.
   !----------------
-  ! Faa di Bruno
+  !> Faa di Bruno
   pure function polyfdb(f,g) result(v)
     complex(8),intent(in) :: f(0:n)
     type(Dcomplex8), intent(in) :: g
@@ -1082,21 +1097,21 @@ contains
   !   v2 = nint(v1%f0)
   ! end function nintDual
 
-  ! Real function.
+  !> Real function.
   elemental function realD(v1) result (v2)
     type(Dcomplex8), intent(in) :: v1
     type(Dcomplex8) :: v2
     v2%f(:)=cmplx(real(v1%f(:)),0.d0,kind(1.d0))
   end function realD
 
-  ! Imag function.
+  !> Imag function.
   elemental function aimagD(v1) result (v2)
     type(Dcomplex8), intent(in) :: v1
     type(Dcomplex8) :: v2
     v2%f(:)=cmplx(aimag(v1%f(:)),0.d0,kind(1.d0))
   end function aimagD
   
-  ! Conjugate function.
+  !> Conjugate function.
   elemental function conjgD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1141,7 +1156,7 @@ contains
   !   v3 = ssign*v1
   ! end function sign_rd
 
-  ! Sine function.
+  !> Sine function.
   elemental function sinD(v1) result(v2)
     TYPE(Dcomplex8),intent(in) :: v1
     TYPE(Dcomplex8) :: v2
@@ -1158,7 +1173,7 @@ contains
     v2=polyfdb(fext,v1)
   end function sinD
 
-  ! Cosine function.
+  !> Cosine function.
   elemental function cosD(v1) result(v2)
     TYPE(Dcomplex8),intent(in) :: v1
     TYPE(Dcomplex8) :: v2
@@ -1175,14 +1190,14 @@ contains
     v2=polyfdb(fext,v1)
   end function cosD
     
-  ! Tangent function.
+  !> Tangent function.
   elemental function tanD(v1) result (v2)
     type(Dcomplex8), intent(in) :: v1
     type(Dcomplex8) :: v2
     v2=sin(v1)/cos(v1)
   end function tanD
 
-  ! Sqrt function
+  !> Sqrt function
   elemental function sqrtD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1196,7 +1211,7 @@ contains
     v2=polyfdb(fext,v1)
   end function sqrtD
 
-  ! Log function
+  !> Log function
   elemental function logD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1214,14 +1229,14 @@ contains
     v2=polyfdb(fext,v1)
   end function logD
 
-  ! Log10 for complex variable
+  !> Log10 for complex variable
   elemental function log10C(v1) result(v2)
     complex(8),intent(in) :: v1
     complex(8) :: v2
     v2=log(v1)/log(10.d0) !returns the principal value
   end function log10C
   
-  ! Log function
+  !> Log function
   elemental function log10D(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1240,7 +1255,7 @@ contains
     v2=polyfdb(fext,v1)
   end function log10D
 
-  ! Exp function
+  !> Exp function
   elemental function expD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1249,7 +1264,7 @@ contains
     v2=polyfdb(fext,v1)
   end function expD
 
-  ! Sinh function
+  !> Sinh function
   elemental function sinhD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1264,7 +1279,7 @@ contains
     v2=polyfdb(fext,v1)
   end function sinhD
 
-  ! Cosh function
+  !> Cosh function
   elemental function coshD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1279,15 +1294,15 @@ contains
     v2=polyfdb(fext,v1)
   end function coshD
 
-  ! Tanh function
+  !> Tanh function
   elemental function tanhD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
     v2=sinh(v1)/cosh(v1)
   end function tanhD
 
-  ! Acos function
-  ! branch cutは実軸から[-1,1]を除いた部分  
+  !> Acos function
+  !> branch cutは実軸から[-1,1]を除いた部分  
   elemental function acosD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1305,8 +1320,8 @@ contains
     v2=polyfdb(fext,v1)
   end function acosD
 
-  ! Asin function
-  ! branch cutは実軸から[-1,1]を除いた部分
+  !> Asin function
+  !> branch cutは実軸から[-1,1]を除いた部分
   elemental function asinD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1324,8 +1339,8 @@ contains
     v2=polyfdb(fext,v1)
   end function asinD
 
-  ! Atan function
-  ! branch cutは虚軸から[-i,i]を除いた部分  
+  !> Atan function
+  !> branch cutは虚軸から[-i,i]を除いた部分  
   elemental function atanD(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
@@ -1356,8 +1371,8 @@ contains
   !   v3%f1 = (c*b - a*d)/(a*a + c*c)
   ! end function atan2DD
 
-  ! Bessel functions
-  ! They are no longer elemental because zbesj is not pure.
+  !> Bessel functions
+  !> They are no longer elemental because zbesj is not pure.
   function bessel_jnD(v1,v2) result(v3)
     integer,intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -1375,8 +1390,11 @@ contains
     zi=aimag(v2%f(0))
     fnu=max(v1-n,0)
     call zbesj(zr,zi,fnu,kode,nn,cyr(max(v1-n,0)),cyi(max(v1-n,0)),nz,ierr)
-    do i=v1-n,v1+n
+    do i=v1-n,min(v1+n,0)
        besj(i)=sign(1.d0,dble(i))**(abs(i))*cmplx(cyr(abs(i)),cyi(abs(i)),kind(1.d0))
+    end do
+    do i=max(0,v1-n),v1+n
+       besj(i)=cmplx(cyr(i),cyi(i),kind(1.d0))
     end do
     fext(:)=zero
     fext(0)=besj(v1)
@@ -1405,8 +1423,8 @@ contains
     v2=bessel_jn(1,v1)
   end function bessel_j1D
 
-  ! Bessel functions
-  ! They are no longer elemental because zbesj is not pure.
+  !> Bessel functions
+  !> They are no longer elemental because zbesj is not pure.
   function bessel_ynD(v1,v2) result(v3)
     integer,intent(in) :: v1
     type(Dcomplex8),intent(in) :: v2
@@ -1425,8 +1443,11 @@ contains
     zi=aimag(v2%f(0))
     fnu=max(v1-n,0)
     call zbesy(zr,zi,fnu,kode,nn,cyr(max(v1-n,0)),cyi(max(v1-n,0)),nz,wkr(max(v1-n,0)),wki(max(v1-n,0)),ierr)
-    do i=v1-n,v1+n
+    do i=v1-n,min(v1+n,0)
        besy(i)=sign(1.d0,dble(i))**(abs(i))*cmplx(cyr(abs(i)),cyi(abs(i)),kind(1.d0))
+    end do
+    do i=max(v1-n,0),v1+n
+       besy(i)=cmplx(cyr(i),cyi(i),kind(1.d0))
     end do
     fext(:)=zero
     fext(0)=besy(v1)
@@ -1443,25 +1464,68 @@ contains
     v3=polyfdb(fext,v2)
   end function bessel_ynD
 
+  !> Bessel function
   function bessel_y0D(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
     v2=bessel_yn(0,v1)
   end function bessel_y0D
 
+  !> Bessel function  
   function bessel_y1D(v1) result(v2)
     type(Dcomplex8),intent(in) :: v1
     type(Dcomplex8) :: v2
     v2=bessel_yn(1,v1)
   end function bessel_y1D
 
-  function hankelD(m,n,v1) result(v2)
-    integer,intent(in) :: m, n
-    type(Dcomplex8),intent(in) :: v1
-    type(Dcomplex8) :: v2
-    real(8) :: pm
-    pm=sign(1.d0,1.5d0-m)
-    v2=bessel_jn(n,v1)+pm*ione*bessel_yn(n,v1)
+  !> Hankel function  
+  function hankelD(m,v1,v2) result(v3)
+    integer,intent(in) :: m, v1
+    type(Dcomplex8),intent(in) :: v2
+    type(Dcomplex8) :: v3
+    integer :: i, k
+    real(8) :: pm, coef
+    complex(8) :: fext(0:n)
+    ! for slatec
+    integer :: nz, ierr, kode, nn
+    real(8) :: zi, zr, fnu
+    real(8) :: cyr(max(v1-n,0):max(v1+n,n-v1)), cyi(max(v1-n,0):max(v1+n,n-v1))
+    real(8) :: cyr2(max(v1-n,0):max(v1+n,n-v1)), cyi2(max(v1-n,0):max(v1+n,n-v1))
+    real(8) :: wkr(max(v1-n,0):max(v1+n,n-v1)), wki(max(v1-n,0):max(v1+n,n-v1))
+    complex(8) :: besh(v1-n:v1+n)
+    real(8) :: pm2
+    pm2=sign(1.d0,1.5d0-m)
+    
+    nn=max(v1+n,n-v1)-max(v1-n,0)+1
+    kode=1
+    zr=real(v2%f(0))
+    zi=aimag(v2%f(0))
+    fnu=max(v1-n,0)
+    call zbesj(zr,zi,fnu,kode,nn,cyr(max(v1-n,0)),cyi(max(v1-n,0)),nz,ierr)
+    call zbesy(zr,zi,fnu,kode,nn,cyr2(max(v1-n,0)),cyi2(max(v1-n,0)),nz,wkr(max(v1-n,0)),wki(max(v1-n,0)),ierr)
+    do i=v1-n,min(v1+n,0)
+       besh(i)=sign(1.d0,dble(i))**(abs(i))&
+            *cmplx(cyr(abs(i))-pm2*cyi2(abs(i)),cyi(abs(i))+pm2*cyr2(abs(i)),kind(1.d0))
+    end do
+    do i=max(v1-n,0),v1+n
+       besh(i)=cmplx(cyr(i)-pm2*cyi2(i),cyi(i)+pm2*cyr2(i),kind(1.d0))
+    end do
+    fext(:)=zero
+    fext(0)=besh(v1)
+    coef=0.5d0
+    do i=1,n
+       pm=1.d0
+       do k=0,i
+          fext(i)=fext(i)+pm*choose(i)%a(k)*besh(v1-i+2*k)
+          pm=-pm
+       end do
+       fext(i)=fext(i)*coef
+       coef=coef*0.5d0
+    end do
+    v3=polyfdb(fext,v2)
+
+    ! v3=bessel_jn(v1,v2)+pm*ione*bessel_yn(v1,v2)
+
   end function hankelD
   
   ! 以下、使わない気がする
